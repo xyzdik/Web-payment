@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>XYZDIK</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      background: #000;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    canvas#matrix {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -2;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(2px);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      background-color: rgba(27, 27, 27, 0.9);
+      box-shadow: 0 0 20px #3a86ff;
+      border-radius: 15px;
+      margin-top: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1, h2, h3, label, p, button {
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 1px 1px #3a86ff, -1px -1px #ff00ff; }
+      20% { text-shadow: -2px 2px #ff00ff, 2px -2px #3a86ff; }
+      40% { text-shadow: 1px -1px #3a86ff, -1px 1px #ff00ff; }
+      60% { text-shadow: -1px -1px #ff00ff, 1px 1px #3a86ff; }
+      80% { text-shadow: 2px 2px #3a86ff, -2px -2px #ff00ff; }
+      100% { text-shadow: 0px 0px #3a86ff, 0px 0px #ff00ff; }
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .payment-method {
+      background-color: #121212;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px #3a86ff;
+    }
+
+    input, button, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #3a86ff;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2f6dcc;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    img.qris {
+      width: 100%;
+      max-width: 300px;
+      display: block;
+      margin: 20px auto;
+      border: 4px solid #3a86ff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #3a86ff;
+    }
+
+    .note {
+      font-size: 14px;
+      color: #aaa;
+      margin-top: 5px;
+    }
+
+    #musicToggle {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      background: #3a86ff;
+      color: #000;
+      border: none;
+      padding: 10px 15px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #3a86ff;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <!-- AUDIO -->
+  <audio id="bgMusic" loop>
+    <source src="https://files.catbox.moe/nprz25.mpga" type="audio/mpeg">
+    Browser kamu tidak mendukung audio.
+  </audio>
+  <button id="musicToggle">🔊 Music</button>
+
+  <div class="container">
+    <h1>XYZDIK PAYMENT</h1>
+
+    <div class="section">
+      <h2>Metode Pembayaran</h2>
+
+      <div class="payment-method">
+        <h3>📌 QRIS</h3>
+        <img src="https://qu.ax/qJuZG.jpg" alt="QRIS" class="qris"/>
+        <p class="note">Gunakan aplikasi e-wallet apa pun untuk scan QR ini.</p>
+      </div>
+
+      <div class="payment-method">
+        <h3>💰 e-Wallet</h3>
+        <p>DANA: <strong>XYZDIK - 0882021090590</strong></p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Konfirmasi Pembayaran</h2>
+      <form id="paymentForm">
+        <label for="name">Nama Anda:</label>
+        <input type="text" id="name" placeholder="Nama lengkap" required />
+
+        <button type="submit">✅ Saya Sudah Bayar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // MATRIX RAIN
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const letters = "01";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#3a86ff";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 33);
+
+    // FORM HANDLER
+    document.getElementById("paymentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+
+      if (!name) {
+        alert("Silakan masukkan nama Anda.");
+        return;
+      }
+
+      const whatsappNumber = "6281216493076";
+      const message = `Done Bang, saya *${name}* Udah TF Mohon Di cek!`;
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+      window.open(whatsappURL, "_blank");
+    });
+
+    // AUDIO TOGGLE
+    const audio = document.getElementById("bgMusic");
+    const toggleBtn = document.getElementById("musicToggle");
+    let isPlaying = false;
+
+    toggleBtn.addEventListener("click", () => {
+      if (!isPlaying) {
+        audio.volume = 0.5;
+        audio.play();
+        toggleBtn.textContent = "🔈 Playing";
+      } else {
+        audio.pause();
+        toggleBtn.textContent = "🔊 Music";
+      }
+      isPlaying = !isPlaying;
+    });
+  </script>
+</body>
+</html>
