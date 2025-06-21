@@ -1,231 +1,488 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>XYZDIK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rev Store Hosting Create By Xyzdik</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=VT323&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
+  #qrisImage {
+  margin-top: 1.5rem;
+  text-align: center;
+  display: none; /* Awalnya disembunyikan */
+}
+#qrisImage img {
+  max-width: 250px;
+  border: 2px solid #0ff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #0ff;
+}
+  #bgVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  z-index: -1;
+  object-fit: cover;
+}
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'VT323', 'Orbitron', sans-serif;
+      background: #0f0f0f url('https://files.catbox.moe/lh1h4n.jpg') no-repeat center center fixed;
+      background-size: cover;
       color: #fff;
-      background: #000;
       overflow-x: hidden;
-      overflow-y: auto;
-    }
+      min-height: 100vh;
+    }h1 {
+  text-align: center;
+  padding: 1rem;
+  font-size: 3.2rem;
+  color: #000;
+  animation: flickerColors 4s infinite;
+}
 
-    canvas#matrix {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -2;
-    }
+.produk-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2rem;
+}
 
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(2px);
-      z-index: -1;
-    }
+.produk-item {
+  width: 280px;
+  margin: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #0ff;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 30px;
-      background-color: rgba(27, 27, 27, 0.9);
-      box-shadow: 0 0 20px #3a86ff;
-      border-radius: 15px;
-      margin-top: 40px;
-      position: relative;
-      z-index: 1;
-    }
+.produk-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #0ff;
+}
 
-    h1, h2, h3, label, p, button {
-      animation: glitch 1s infinite;
-    }
+.produk-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
 
-    @keyframes glitch {
-      0% { text-shadow: 1px 1px #3a86ff, -1px -1px #ff00ff; }
-      20% { text-shadow: -2px 2px #ff00ff, 2px -2px #3a86ff; }
-      40% { text-shadow: 1px -1px #3a86ff, -1px 1px #ff00ff; }
-      60% { text-shadow: -1px -1px #ff00ff, 1px 1px #3a86ff; }
-      80% { text-shadow: 2px 2px #3a86ff, -2px -2px #ff00ff; }
-      100% { text-shadow: 0px 0px #3a86ff, 0px 0px #ff00ff; }
-    }
+.produk-nama, .produk-harga {
+  font-size: 1.6rem;
+  padding: 0.5rem;
+  text-align: center;
+  color: #000;
+  animation: flickerColors 5s infinite;
+}
 
-    .section {
-      margin-top: 30px;
-    }
+.produk-tombol {
+  text-align: center;
+  padding: 1rem;
+}
 
-    .payment-method {
-      background-color: #121212;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px #3a86ff;
-    }
+.produk-tombol button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #0ff;
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
 
-    input, button, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-    }
+.produk-tombol button:hover {
+  background-color: #00f;
+  color: #fff;
+  box-shadow: 0 0 10px #00f;
+}
 
-    button {
-      background-color: #3a86ff;
-      color: #000;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s ease;
-    }
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #111;
+  color: #000;
+  font-size: 1.1rem;
+  animation: flickerColors 6s infinite;
+}
 
-    button:hover {
-      background-color: #2f6dcc;
-    }
+#loginOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.9);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    label {
-      font-weight: bold;
-    }
+.login-box {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: 10px;
+  border: 2px solid #0ff;
+  text-align: center;
+  box-shadow: 0 0 20px #0ff;
+}
 
-    img.qris {
-      width: 100%;
-      max-width: 300px;
-      display: block;
-      margin: 20px auto;
-      border: 4px solid #3a86ff;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #3a86ff;
-    }
+.login-box input {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.7rem;
+  width: 80%;
+  border-radius: 5px;
+  border: 1px solid #0ff;
+  font-size: 1rem;
+  background: #000;
+  color: #0ff;
+  text-align: center;
+}
 
-    .note {
-      font-size: 14px;
-      color: #aaa;
-      margin-top: 5px;
-    }
+.login-box button {
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background: #0ff;
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
 
-    #playMusicBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #3a86ff;
-      color: #000;
-      padding: 12px 16px;
-      font-weight: bold;
-      border-radius: 10px;
-      border: none;
-      box-shadow: 0 0 10px #3a86ff;
-      z-index: 9999;
-      cursor: pointer;
-    }
+.login-box button:hover {
+  background: #00f;
+  color: #fff;
+  box-shadow: 0 0 10px #00f;
+}
+
+.login-box h2, .login-box p {
+  color: #000;
+  font-size: 1.3rem;
+  animation: flickerColors 5s infinite;
+}
+
+@keyframes flickerColors {
+  0%   { color: #ff00cc; text-shadow: 0 0 5px #ff00cc; }
+  25%  { color: #00ffff; text-shadow: 0 0 5px #00ffff; }
+  50%  { color: #ffff00; text-shadow: 0 0 5px #ffff00; }
+  75%  { color: #00ff00; text-shadow: 0 0 5px #00ff00; }
+  100% { color: #ff00cc; text-shadow: 0 0 5px #ff00cc; }
+}
+
+#welcomePopup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.95);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+#welcomeText {
+  font-size: 2.5rem;
+  color: #0ff;
+  font-weight: bold;
+  border-right: 2px solid #0ff;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 3s steps(30, end) forwards, blink 0.7s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
+/* --- Bagian Payment --- */
+#paymentSection {
+  display: none;
+  max-width: 700px;
+  margin: 2rem auto 3rem auto;
+  background: rgba(0,0,0,0.6);
+  border: 2px solid #0ff;
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+  color: #000;
+  animation: flickerColors 5s infinite;
+}
+
+#paymentSection h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  color: #000;
+  animation: flickerColors 4s infinite;
+}
+
+#paymentSection label {
+  display: block;
+  font-size: 1.2rem;
+  margin: 1rem 0 0.3rem 0;
+  color: #000;
+}
+
+#paymentSection input, #paymentSection select {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #0ff;
+  background: #000;
+  color: #0ff;
+}
+
+#paymentSection button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1.2rem;
+  background: #0ff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#paymentSection button:hover {
+  background: #00f;
+  color: #fff;
+  box-shadow: 0 0 10px #00f;
+}
+#bgVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
   </style>
 </head>
-<body>
-  <canvas id="matrix"></canvas>
-
-  <!-- AUDIO AUTOPLAY VIA USER -->
-  <audio id="bgMusic" loop>
-    <source src="https://files.catbox.moe/nprz25.mpga" type="audio/mpeg">
-    Browser kamu tidak mendukung audio.
-  </audio>
-
-  <!-- TOMBOL PLAY MUSIK -->
-  <button id="playMusicBtn" onclick="playMusic()">🎵 Wajib Play Musik</button>
-
-  <div class="container">
-    <h1>XYZDIK PAYMENT</h1>
-
-    <div class="section">
-      <h2>Metode Pembayaran</h2>
-
-      <div class="payment-method">
-        <h3>📌 QRIS</h3>
-        <img src="https://qu.ax/qJuZG.jpg" alt="QRIS" class="qris"/>
-        <p class="note">Gunakan aplikasi e-wallet apa pun untuk scan QR ini.</p>
-      </div>
-
-      <div class="payment-method">
-        <h3>💰 e-Wallet</h3>
-        <p>DANA: <strong>XYZDIK - 0882021090590</strong></p>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Konfirmasi Pembayaran</h2>
-      <form id="paymentForm">
-        <label for="name">Nama Anda:</label>
-        <input type="text" id="name" placeholder="Nama lengkap" required />
-
-        <button type="submit">✅ Saya Sudah Bayar</button>
-      </form>
-    </div>
+<body><!-- Login -->
+<video autoplay muted loop id="bgVideo">
+  <source src="https://files.catbox.moe/5agla1.mp4" type="video/mp4">
+</video>
+<div id="loginOverlay">
+  <div class="login-box">
+    <h2>Login Terlebih dahulu</h2>
+    <input type="text" id="XYZDIK" placeholder="UserName = Rev"
+    />
+    <button onclick="cekLogin()">Masuk</button>
+    <p id="loginError"></p>
   </div>
+</div><!-- Welcome --><div id="welcomePopup">
+  <div id="welcomeText">Rev Store Hosting!</div>
+</div><!-- Produk Section --><section id="produkSection" class="produk-container" style="display:none;">
+  <h1>Rev Store Hosting</h1>  <div class="produk-item" data-kategori="hosting" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Resseler Panel</div>
+    <div class="produk-harga">Rp 5.000</div>
+    <div class="produk-tombol"><button onclick="openPayment('Resseler Panel', '5.000')">Beli</button></div>
+  </div>
+  <div class="produk-item" data-kategori="hosting" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Murid Pembuat Web </div>
+    <div class="produk-harga">Rp 15.000</div>
+    <div class="produk-tombol"><button onclick="openPayment('Murid Pembuat Web', '15.000')">Beli</button></div>
+  </div>
+  <div class="produk-item" data-kategori="domain" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Owner Panel</div>
+    <div class="produk-harga">Rp 15.000</div>
+    <div class="produk-tombol"><button onclick="openPayment('Ownee Panel', '15.000')">Beli</button></div>
+  </div>
+  <div class="produk-item" data-kategori="vps" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Pt Panel</div>
+    <div class="produk-harga">Rp 23.000</div>
+    <div class="produk-tombol"><button onclick="openPayment('Pt Panel', '20.000')">Beli</button></div>
+  </div>
+  <div class="produk-item" data-kategori="ssl" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Tangan Kanan Panel</div>
+    <div class="produk-harga">Rp 30.000</div>
+    <div class="produk-tombol"><button onclick="openPayment('Tangan Kanan Panel', '30.000')">Beli</button></div>
+  </div>
+  <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Murpush Anti Kenon</div>
+    <div class="produk-harga">Rp 3.000</div>
+    <div class="produk-tombol"><button onclick="openPayment('Murpush Anti Kenon', '3.000')">Beli</button></div>
+  </div>
+  <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+  <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+  <div class="produk-nama">Admin Panel</div>
+  <div class="produk-harga">Rp 10.000</div>
+  <div class="produk-tombol"><button onclick="openPayment('Admin Panel', '10.000')">Beli</button></div>
+</div>
+ <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Bot Push Kontak</div>
+    <div class="produk-harga">Rp 3.000</div>
+    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 1 hari', '3.000')">Beli</button></div>
+  </div>
+   <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Bot Push Kontak 3 hari</div>
+    <div class="produk-harga">Rp 5.000</div>
+    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 3 hari', '5.000')">Beli</button></div>
+  </div>
+   <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Bot Push Kontak 7 hari</div>
+    <div class="produk-harga">Rp 10.000</div></div>
+    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 7 hari', '10.000')">Beli</button></div>
+  </div>
+   <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Bot Push Kontak 14 hari</div>
+    <div class="produk-harga">Rp 15.000</div></div>
+    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 14 hari', '15.000')">Beli</button></div>
+     <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Bot Push Kontak 17 hari</div>
+    <div class="produk-harga">Rp 17.000</div></div>
+    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 17 hari', '20.000')">Beli</button></div>
+     <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Bot Push Kontak 20 hari</div>
+    <div class="produk-harga">Rp 25.000</div></div>
+    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 20 hari', '25.000')">Beli</button></div>
+  </div>
+   <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Bot Push Kontak 24 hari</div>
+    <div class="produk-harga">Rp 30.000</div></div>
+    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 24 hari', '30.000')">Beli</button></div></div>
+   <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+    <div class="produk-nama">Bot Push Kontak 30 hari</div>
+    <div class="produk-harga">Rp 35.000</div></div>
+    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 30 hari', '35.000')">Beli</button></div>
+</section><!-- Payment Section --><section id="paymentSection">
+  <h2>Rev Store Payment</h2>
+  <form id="paymentForm" onsubmit="return prosesPembayaran(event)">
+    <label for="productName">Produk</label>
+    <input type="text" id="productName" name="productName" readonly /><label for="productPrice">Harga (Rp)</label>
+<input type="text" id="productPrice" name="productPrice" readonly />
 
-  <script>
-    // MATRIX RAIN
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
+<label for="namaPembeli">Nama Pembeli</label>
+<input type="text" id="namaPembeli" name="namaPembeli" required />
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+<label for="metodePembayaran">Metode Pembayaran</label>
+<select id="metodePembayaran" name="metodePembayaran" required>
+  <option value="">Pilih metode</option>
+  <option value="QRIS">QRIS</option>
+</select>
 
-    const letters = "01";
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
 
-    function drawMatrix() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+<div id="qrisImage">
+  <p style="color:#000; animation: flickerColors 5s infinite;">Scan QRIS untuk membayar:</p>
+  <img src="https://files.catbox.moe/0ro09v.jpg" alt="QRIS Payment" />
+</div>
 
-      ctx.fillStyle = "#3a86ff";
-      ctx.font = fontSize + "px monospace";
+<button type="submit">
+  Kirim Bukti Pembayaran Ke Owner
+</button>
 
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters.charAt(Math.floor(Math.random() * letters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+  </form>
+</section><footer>
+  &copy; 2025 Rev Hosting | Create By Xyzdik
+</footer><script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script><script>
+  AOS.init({ duration: 1000 });
+</script>
+<script>
+  const metodeSelect = document.getElementById("metodePembayaran");
+  const qrisDiv = document.getElementById("qrisImage");
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-
-        drops[i]++;
-      }
+  metodeSelect.addEventListener("change", function () {
+    if (this.value === "QRIS") {
+      qrisDiv.style.display = "block"; // Tampilkan gambar QRIS
+    } else {
+      qrisDiv.style.display = "none"; // Sembunyikan gambar QRIS
     }
+  });
+</script><script>
+  // Login logic (as original)
+  const usernameBenar = "Rev";
+  const loginSound = new Audio("https://files.catbox.moe/nprz25.mpga");
+loginSound.loop = true; // <<< ini bikin suaranya muter terus
 
-    setInterval(drawMatrix, 33);
+  function cekLogin() {
+    const user = document.getElementById("XYZDIK").value;
+    const err = document.getElementById("loginError");
 
-    // FORM HANDLER
-    document.getElementById("paymentForm").addEventListener("submit", function(e) {
-      e.preventDefault();
+    loginSound.play();
 
-      const name = document.getElementById("name").value;
-
-      if (!name) {
-        alert("Silakan masukkan nama Anda.");
-        return;
-      }
-
-      const whatsappNumber = "6281216493076";
-      const message = `Done Bang, saya *${name}* Udah TF Mohon Di cek!`;
-      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-      window.open(whatsappURL, "_blank");
-    });
-
-    // MUSIC PLAY
-    function playMusic() {
-      const audio = document.getElementById("bgMusic");
-      audio.volume = 0.5;
-      audio.play();
-      document.getElementById("playMusicBtn").style.display = "none";
+    if (user === usernameBenar) {
+      document.getElementById("welcomePopup").style.display = "flex";
+      setTimeout(() => {
+        document.getElementById("welcomePopup").style.display = "none";
+        document.getElementById("loginOverlay").style.display = "none";
+        document.getElementById("produkSection").style.display = "flex";
+      }, 3000);
+    } else {
+      err.textContent = "Masukin UserName yang benar";
+      err.style.color = "red";
     }
-  </script>
-</body>
+  }
+
+  // Produk beli -> buka halaman payment dengan data produk
+  function openPayment(nama, harga) {
+    const audio = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_3a8fb0d6b6.mp3");
+    audio.play();
+    setTimeout(() => {
+      document.getElementById("produkSection").style.display = "none";
+      document.getElementById("paymentSection").style.display = "block";
+      document.getElementById("productName").value = nama;
+      document.getElementById("productPrice").value = harga;
+    }, 300);
+  }
+
+// Proses pembayaran (dummy)
+function prosesPembayaran(e) {
+  e.preventDefault();
+
+  const produk = document.getElementById("productName").value;
+  const harga = document.getElementById("productPrice").value;
+  const nama = document.getElementById("namaPembeli").value;
+  const metode = document.getElementById("metodePembayaran").value;
+
+  // Format pesan WhatsApp
+  const pesan = encodeURIComponent(
+    `Halo, saya baru saja melakukan pembayaran:\n\n` +
+    ` 🛒 Produk: ${produk}\n 💸 Harga: Rp ${harga}\n 🧑 Nama Pembeli: ${nama}\n 💳 Metode Pembayaran: ${metode}`
+  );
+
+  // Ganti nomor berikut dengan nomor WhatsApp tujuan (awali dengan 62)
+  const nomorWhatsApp = "6285828481568";
+  const urlWA = `https://wa.me/${nomorWhatsApp}?text=${pesan}`;
+
+  // Buka WhatsApp di tab baru
+  window.open(urlWA, '_blank');
+
+  // Setelah bayar, kembali ke halaman produk
+  document.getElementById("paymentSection").style.display = "none";
+  document.getElementById("produkSection").style.display = "flex";
+}
+</script></body>
 </html>
