@@ -301,7 +301,7 @@ footer {
   <div class="produk-item" data-kategori="hosting" data-aos="fade-up">
     <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
     <div class="produk-nama">Murid Pembuat Web </div>
-    <div class="produk-harga">Rp 15.000</div>
+    <div class="produk-harga">Rp 15.000</div></div>
     <div class="produk-tombol"><button onclick="openPayment('Murid Pembuat Web', '15.000')">Beli</button></div>
   </div>
   <div class="produk-item" data-kategori="domain" data-aos="fade-up">
@@ -314,7 +314,7 @@ footer {
     <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
     <div class="produk-nama">Pt Panel</div>
     <div class="produk-harga">Rp 23.000</div>
-    <div class="produk-tombol"><button onclick="openPayment('Pt Panel', '20.000')">Beli</button></div>
+    <div class="produk-tombol"><button onclick="openPayment('Pt Panel', '23.000')">Beli</button></div>
   </div>
   <div class="produk-item" data-kategori="ssl" data-aos="fade-up">
     <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
@@ -349,7 +349,7 @@ footer {
    <div class="produk-item" data-kategori="panel" data-aos="fade-up">
     <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
     <div class="produk-nama">Bot Push Kontak 7 hari</div>
-    <div class="produk-harga">Rp 10.000</div></div>
+   <div class="produk-harga">Rp 10.000</div>
     <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 7 hari', '10.000')">Beli</button></div>
   </div>
    <div class="produk-item" data-kategori="panel" data-aos="fade-up">
@@ -361,7 +361,7 @@ footer {
     <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
     <div class="produk-nama">Bot Push Kontak 17 hari</div>
     <div class="produk-harga">Rp 17.000</div></div>
-    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 17 hari', '20.000')">Beli</button></div>
+    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 17 hari', '17.000')">Beli</button></div>
      <div class="produk-item" data-kategori="panel" data-aos="fade-up">
     <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
     <div class="produk-nama">Bot Push Kontak 20 hari</div>
@@ -373,11 +373,14 @@ footer {
     <div class="produk-nama">Bot Push Kontak 24 hari</div>
     <div class="produk-harga">Rp 30.000</div></div>
     <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 24 hari', '30.000')">Beli</button></div></div>
-   <div class="produk-item" data-kategori="panel" data-aos="fade-up">
-    <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
-    <div class="produk-nama">Bot Push Kontak 30 hari</div>
-    <div class="produk-harga">Rp 35.000</div></div>
-    <div class="produk-tombol"><button onclick="openPayment('Bot Push Kontak 30 hari', '35.000')">Beli</button></div>
+  <div class="produk-item" data-kategori="panel" data-aos="fade-up">
+  <img src="https://files.catbox.moe/xu05st.jpg" class="produk-img" />
+  <div class="produk-nama">Bot Push Kontak 30 hari</div>
+  <div class="produk-harga">Rp 35.000</div>
+  <div class="produk-tombol">
+    <button onclick="openPayment('Bot Push Kontak 30 hari', '35.000')">Beli</button>
+  </div>
+</div>
 </section><!-- Payment Section --><section id="paymentSection">
   <h2>Rev Store Payment</h2>
   <form id="paymentForm" onsubmit="return prosesPembayaran(event)">
@@ -389,11 +392,34 @@ footer {
 <input type="text" id="namaPembeli" name="namaPembeli" required />
 
 <label for="metodePembayaran">Metode Pembayaran</label>
-<select id="metodePembayaran" name="metodePembayaran" required>
+<div id="danaNumber" 
+     style="display:none; 
+            margin-top: 1rem; 
+            color: #000; 
+            cursor: pointer; 
+            text-align:center; 
+            font-weight:bold; 
+            animation: flickerColors 5s infinite; 
+            width: 100%;">
+  <span id="danaNomor" 
+      style="display: inline-block; 
+             border: 2px solid #000; 
+             padding: 0.5rem 1rem; 
+             border-radius: 8px; 
+             background-color: #007BFF;  
+             color: #fff;                
+             font-size: 50px;          /* Ukuran font diperbesar */
+             user-select: all;">
+  085828481568
+</span>
+</div>
+<select id="metodePembayaran" nam
+e="metodePembayaran" required>
+
   <option value="">Pilih metode</option>
+   <option value="DANA">DANA</option>
   <option value="QRIS">QRIS</option>
 </select>
-
 
 <div id="qrisImage">
   <p style="color:#000; animation: flickerColors 5s infinite;">Scan QRIS untuk membayar:</p>
@@ -412,15 +438,21 @@ footer {
 </script>
 <script>
   const metodeSelect = document.getElementById("metodePembayaran");
-  const qrisDiv = document.getElementById("qrisImage");
+const qrisDiv = document.getElementById("qrisImage");
+const danaDiv = document.getElementById("danaNumber");
 
-  metodeSelect.addEventListener("change", function () {
-    if (this.value === "QRIS") {
-      qrisDiv.style.display = "block"; // Tampilkan gambar QRIS
-    } else {
-      qrisDiv.style.display = "none"; // Sembunyikan gambar QRIS
-    }
-  });
+metodeSelect.addEventListener("change", function () {
+  if (this.value === "QRIS") {
+    qrisDiv.style.display = "block"; // Tampilkan gambar QRIS
+    danaDiv.style.display = "none"; // Sembunyikan nomor DANA
+  } else if (this.value === "DANA") {
+    danaDiv.style.display = "block"; // Tampilkan nomor DANA
+    qrisDiv.style.display = "none";  // Sembunyikan QRIS
+  } else {
+    qrisDiv.style.display = "none";  // Sembunyikan QRIS
+    danaDiv.style.display = "none"; // Sembunyikan nomor DANA
+  }
+});
 </script><script>
   // Login logic (as original)
   const usernameBenar = "Rev";
